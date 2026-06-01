@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<Profile>
+  <Overview>Crawl4AI Proxy for Open WebUI — bridges Open WebUI's external web loader to Crawl4AI for high-quality page content fetching.</Overview>
+  <Description>
+    This lightweight proxy enables Open WebUI to use Crawl4AI as its web content loader.
+    It fetches clean markdown from any URL using Crawl4AI's headless browser with content filtering,
+    dramatically improving the quality of web-search-enhanced AI responses.
+
+    Prerequisites:
+    - Crawl4AI (Docker or standalone)
+    - Open WebUI
+
+    Docker image is built locally from source. See README for build instructions.
+  </Description>
+  <Author>zkkzkk32312</Author>
+  <Project>https://github.com/zkkzkk32312/crawl4ai-proxy</Project>
+  <Support>https://github.com/zkkzkk32312/crawl4ai-proxy/issues</Support>
+  <Template>https://raw.githubusercontent.com/zkkzkk32312/crawl4ai-proxy/main/templates/crawl4ai-proxy.xml</Template>
+  <Icon>https://raw.githubusercontent.com/zkkzkk32312/crawl4ai-proxy/main/icon.png</Icon>
+</Profile>
