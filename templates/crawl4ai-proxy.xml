@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Crawl4AIProxy</Name>
-  <Repository>zkkzkk32312/openwebui-search-proxy</Repository>
-  <Registry>https://hub.docker.com/r/zkkzkk32312/openwebui-search-proxy</Registry>
+  <Repository>zkkzkk32312/crawl4ai-proxy</Repository>
+  <Registry>https://hub.docker.com/r/zkkzkk32312/crawl4ai-proxy</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>sh</Shell>

@@ -24,7 +24,7 @@ Open WebUI → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
 ## Quick Deploy (Docker)
 
 ```bash
-docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-crawl4ai-ip>:11235/md zkkzkk32312/openwebui-search-proxy
+docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-crawl4ai-ip>:11235/md zkkzkk32312/crawl4ai-proxy
 ```
 
 ### Environment Variables
