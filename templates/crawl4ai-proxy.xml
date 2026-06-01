@@ -13,7 +13,7 @@
   <Category>Tools:</Category>
   <WebUI>http://[IP]:[PORT:8087]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/zkkzkk32312/crawl4ai-proxy/main/templates/crawl4ai-proxy.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/zkkzkk32312/crawl4ai-proxy/main/icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/zkkzkk32312/crawl4ai-proxy/main/icon.svg</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
