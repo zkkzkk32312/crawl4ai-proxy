@@ -40,7 +40,10 @@ docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-cr
 1. Copy `crawl4ai-proxy.xml` to `/boot/config/plugins/dockerMan/templates-user/`
 2. Go to **Docker → Add Container** in Unraid
 3. Select **my-crawl4ai-proxy** template
-4. Configure the port and Crawl4AI URL
+4. Configure the settings:
+   - **Proxy Port** — host port (default `8087`)
+   - **Crawl4AI URL** — your Crawl4AI `/md` endpoint (default `http://192.168.1.10:11235/md`)
+   - **Proxy API Key** — optional, leave empty to disable
 5. Click **Apply**
 
 ## Open WebUI Configuration
