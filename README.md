@@ -24,8 +24,7 @@ Open WebUI → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
 ## Quick Deploy (Docker)
 
 ```bash
-docker build -t openwebui-search-proxy .
-docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-crawl4ai-ip>:11235/md openwebui-search-proxy
+docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-crawl4ai-ip>:11235/md zkkzkk32312/openwebui-search-proxy
 ```
 
 ### Environment Variables
@@ -37,14 +36,23 @@ docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-cr
 
 ## Unraid Deployment
 
+### Via Community Apps (recommended)
+
+1. Go to **Apps** tab in Unraid
+2. Search for **Crawl4AI Proxy**
+3. Click **Install**
+4. Configure the settings:
+   - **Proxy Port** — host port (default `8087`)
+   - **Crawl4AI URL** — your Crawl4AI `/md` endpoint
+   - **Proxy API Key** — optional, leave empty to disable
+5. Click **Apply**
+
+### Manual
+
 1. Copy `templates/crawl4ai-proxy.xml` to `/boot/config/plugins/dockerMan/templates-user/`
 2. Go to **Docker → Add Container** in Unraid
 3. Select **my-crawl4ai-proxy** template
-4. Configure the settings:
-   - **Proxy Port** — host port (default `8087`)
-   - **Crawl4AI URL** — your Crawl4AI `/md` endpoint (default `http://192.168.1.10:11235/md`)
-   - **Proxy API Key** — optional, leave empty to disable
-5. Click **Apply**
+4. Configure the settings and click **Apply**
 
 ## Open WebUI Configuration
 
