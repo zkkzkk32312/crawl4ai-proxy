@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Crawl4AIProxy</Name>
+  <Repository>openwebui-search-proxy</Repository>
+  <Registry></Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project/>
+  <Overview>Proxy bridging Open WebUI external web loader to Crawl4AI</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8087]/</WebUI>
+  <TemplateURL/>
+  <Icon/>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1748784000</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Proxy Port" Target="8087" Default="8087" Mode="tcp" Description="Host port for the proxy" Type="Port" Display="show" Required="true" Mask="false">8087</Config>
+  <Config Name="Crawl4AI URL" Target="CRAWL4AI_URL" Default="http://192.168.1.10:11235/md" Mode="{3}" Description="Crawl4AI /md endpoint URL" Type="Variable" Display="show" Required="true" Mask="false">http://192.168.1.10:11235/md</Config>
+  <Config Name="Proxy API Key" Target="PROXY_API_KEY" Default="" Mode="{3}" Description="API key for Open WebUI (leave empty to disable)" Type="Variable" Display="show" Required="false" Mask="true"/>
+</Container>
