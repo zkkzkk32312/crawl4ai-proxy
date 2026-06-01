@@ -9,19 +9,16 @@ Open WebUI's default web loader struggles with JavaScript-heavy pages and bot de
 ## Architecture
 
 ```
-Open WebUI → SearXNG (search) → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
+Open WebUI → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
 ```
 
-1. **Open WebUI** sends search queries to **SearXNG**
-2. SearXNG returns URLs matching the query
-3. Open WebUI sends those URLs to this **proxy** as the external web loader
-4. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content
-5. Content is returned to Open WebUI and injected into the AI model's context
+1. **Open WebUI** sends URLs to this **proxy** as the external web loader
+2. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content
+3. Content is returned to Open WebUI and injected into the AI model's context
 
 ## Prerequisites
 
 - **Crawl4AI** running (Docker or standalone) — [unclecode/crawl4ai](https://hub.docker.com/r/unclecode/crawl4ai)
-- **SearXNG** running — [searxng/searxng](https://github.com/searxng/searxng)
 - **Open WebUI** — [open-webui/open-webui](https://github.com/open-webui/open-webui)
 
 ## Quick Deploy (Docker)
@@ -48,24 +45,12 @@ docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-cr
 
 ## Open WebUI Configuration
 
-### Web Search (SearXNG)
-
-1. Go to **Admin Panel → Web Search**
-2. Set **SearXNG Query URL** to: `http://<searxng-ip>:8084/search?q=<query>&format=json`
-3. Set **Search Result Count** to `5`
-
-### External Web Loader
-
 1. Go to **Admin Panel → Web Loader**
 2. Set **Web Loader Engine** to `external`
 3. Set **External Web Loader URL** to: `http://<proxy-ip>:8087/search`
 4. If you set `PROXY_API_KEY`, enter it in **External Web Loader API Key**
 
-> **Important:** Use `<query>` (angle brackets) not `{query}` for the SearXNG placeholder.
-
-### Bypass Settings
-
-Make sure both **Bypass Embedding and Retrieval** and **Bypass Web Loader** are **OFF**.
+> **Note:** Make sure **Bypass Web Loader** is **OFF** in Admin Panel.
 
 ## API
 
