@@ -7,7 +7,7 @@
   <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/zkkzkk32312/crawl4ai-proxy/issues</Support>
+  <Support>https://forums.unraid.net/topic/199195-crawl4ai-proxy-for-openwebui/</Support>
   <Project>https://github.com/zkkzkk32312/crawl4ai-proxy</Project>
   <Overview>Proxy bridging Open WebUI external web loader to Crawl4AI</Overview>
   <Category>Tools:</Category>
