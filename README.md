@@ -13,7 +13,7 @@ Open WebUI → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
 ```
 
 1. **Open WebUI** sends URLs to this **proxy** as the external web loader
-2. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content
+2. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content (strips navigation, ads, sign-in prompts)
 3. Content is returned to Open WebUI and injected into the AI model's context
 
 ## Prerequisites
@@ -67,7 +67,7 @@ docker run -d --name crawl4ai-proxy -p 8087:8087 -e CRAWL4AI_URL=http://<your-cr
 
 ### POST /search
 
-Fetches page content for a batch of URLs.
+Fetches page content for a batch of URLs **in parallel** (all URLs are fetched simultaneously via `asyncio.gather`).
 
 **Request:**
 ```json
