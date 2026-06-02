@@ -1,4 +1,5 @@
 import os
+import sys
 import asyncio
 import logging
 from fastapi import FastAPI, Header, HTTPException
@@ -6,8 +7,9 @@ from pydantic import BaseModel
 from typing import List
 import httpx
 
+# Use StreamHandler with stderr + force flush so logs appear in docker logs
+logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("main")
-logging.basicConfig(level=logging.INFO)
 
 CRAWL4AI_URL = os.environ.get("CRAWL4AI_URL", "http://192.168.1.10:11235/md")
 PROXY_API_KEY = os.environ.get("PROXY_API_KEY", "")
@@ -45,9 +47,12 @@ async def search(req: LoaderRequest, authorization: str = Header(None)):
         if authorization != expected:
             raise HTTPException(status_code=401, detail="Invalid API key")
 
+    logger.info(f"Received {len(req.urls)} URLs to fetch")
     async with httpx.AsyncClient(timeout=60) as client:
         tasks = [fetch_url(url, client) for url in req.urls]
         results = await asyncio.gather(*tasks)
+    success = sum(1 for r in results if not r["page_content"].startswith("Error"))
+    logger.info(f"Done: {success}/{len(req.urls)} successful")
     return list(results)
 
 @app.get("/health")
