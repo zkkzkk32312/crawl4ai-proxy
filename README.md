@@ -13,7 +13,7 @@ Open WebUI → Crawl4AI Proxy (content fetch) → Crawl4AI (markdown extraction)
 ```
 
 1. **Open WebUI** sends URLs to this **proxy** as the external web loader
-2. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content (strips navigation, ads, sign-in prompts)
+2. The proxy calls **Crawl4AI** `/md` endpoint with `filter=fit` to extract clean content (strips navigation, ads, sign-in prompts). If the filtered result is too short (<100 chars), it retries without the filter as a fallback
 3. Content is returned to Open WebUI and injected into the AI model's context
 
 ## Prerequisites

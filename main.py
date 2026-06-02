@@ -21,6 +21,7 @@ class LoaderRequest(BaseModel):
 
 async def fetch_url(url: str, client: httpx.AsyncClient) -> dict:
     try:
+        # Try filter=fit first (strips nav, ads, sign-in prompts)
         resp = await client.post(
             CRAWL4AI_URL,
             json={"url": url, "filter": "fit"},
@@ -28,7 +29,21 @@ async def fetch_url(url: str, client: httpx.AsyncClient) -> dict:
         resp.raise_for_status()
         data = resp.json()
         content = data.get("markdown", "")
-        logger.info(f"Fetched {url}: {len(content)} chars")
+
+        # Fallback: if filter=fit stripped too much, retry without filter
+        if len(content) < 100:
+            logger.info(f"Fallback: {url} returned only {len(content)} chars with filter=fit, retrying raw")
+            resp = await client.post(
+                CRAWL4AI_URL,
+                json={"url": url},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            content = data.get("markdown", "")
+            logger.info(f"Fallback fetched {url}: {len(content)} chars")
+        else:
+            logger.info(f"Fetched {url}: {len(content)} chars")
+
         return {
             "page_content": content,
             "metadata": {"source": url},
