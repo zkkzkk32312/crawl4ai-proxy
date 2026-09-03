@@ -11,6 +11,7 @@ import httpx
 logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("main")
 
+CRAWL4AI_API_TOKEN = os.environ.get("CRAWL4AI_API_TOKEN", "")
 CRAWL4AI_URL = os.environ.get("CRAWL4AI_URL", "http://192.168.1.10:11235/md")
 PROXY_API_KEY = os.environ.get("PROXY_API_KEY", "")
 
@@ -20,11 +21,16 @@ class LoaderRequest(BaseModel):
     urls: List[str]
 
 async def fetch_url(url: str, client: httpx.AsyncClient) -> dict:
+    headers = {}
+    if CRAWL4AI_API_TOKEN:
+        headers["Authorization"] = f"Bearer {CRAWL4AI_API_TOKEN}"
+
     try:
         # Try filter=fit first (strips nav, ads, sign-in prompts)
         resp = await client.post(
             CRAWL4AI_URL,
             json={"url": url, "filter": "fit"},
+            headers=headers,
         )
         resp.raise_for_status()
         data = resp.json()
@@ -36,6 +42,7 @@ async def fetch_url(url: str, client: httpx.AsyncClient) -> dict:
             resp = await client.post(
                 CRAWL4AI_URL,
                 json={"url": url},
+                headers=headers,
             )
             resp.raise_for_status()
             data = resp.json()
