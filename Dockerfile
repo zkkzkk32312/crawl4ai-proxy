@@ -5,5 +5,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY main.py .
 ENV CRAWL4AI_URL=http://192.168.1.10:11235/md
 ENV PROXY_API_KEY=
+ENV CRAWL4AI_API_TOKEN=
 EXPOSE 8087
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8087"]

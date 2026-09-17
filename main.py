@@ -13,29 +13,40 @@ logger = logging.getLogger("main")
 
 CRAWL4AI_URL = os.environ.get("CRAWL4AI_URL", "http://192.168.1.10:11235/md")
 PROXY_API_KEY = os.environ.get("PROXY_API_KEY", "")
+CRAWL4AI_API_TOKEN = os.environ.get("CRAWL4AI_API_TOKEN", "")
 
 app = FastAPI()
 
 class LoaderRequest(BaseModel):
     urls: List[str]
 
+def _auth_headers() -> dict:
+    """Build optional Authorization header for Crawl4AI."""
+    if CRAWL4AI_API_TOKEN:
+        return {"Authorization": f"Bearer {CRAWL4AI_API_TOKEN}"}
+    return {}
+
 async def fetch_url(url: str, client: httpx.AsyncClient) -> dict:
+    headers = _auth_headers()
     try:
-        # Try filter=fit first (strips nav, ads, sign-in prompts)
+        # Try f=fit first (strips nav, ads, sign-in prompts)
+        # Note: Crawl4AI 0.9.x renamed 'filter' -> 'f' in the /md endpoint
         resp = await client.post(
             CRAWL4AI_URL,
-            json={"url": url, "filter": "fit"},
+            json={"url": url, "f": "fit"},
+            headers=headers,
         )
         resp.raise_for_status()
         data = resp.json()
         content = data.get("markdown", "")
 
-        # Fallback: if filter=fit stripped too much, retry without filter
+        # Fallback: if f=fit stripped too much, retry with f=raw
         if len(content) < 100:
-            logger.info(f"Fallback: {url} returned only {len(content)} chars with filter=fit, retrying raw")
+            logger.info(f"Fallback: {url} returned only {len(content)} chars with f=fit, retrying raw")
             resp = await client.post(
                 CRAWL4AI_URL,
-                json={"url": url},
+                json={"url": url, "f": "raw"},
+                headers=headers,
             )
             resp.raise_for_status()
             data = resp.json()

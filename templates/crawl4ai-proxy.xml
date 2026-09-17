@@ -23,5 +23,6 @@
   <Requires/>
   <Config Name="Proxy Port" Target="8087" Default="8087" Mode="tcp" Description="Host port for the proxy" Type="Port" Display="show" Required="true" Mask="false">8087</Config>
   <Config Name="Crawl4AI URL" Target="CRAWL4AI_URL" Default="http://192.168.1.10:11235/md" Mode="{3}" Description="Crawl4AI /md endpoint URL" Type="Variable" Display="show" Required="true" Mask="false">http://192.168.1.10:11235/md</Config>
-  <Config Name="Proxy API Key" Target="PROXY_API_KEY" Default="" Mode="{3}" Description="API key for Open WebUI (leave empty to disable)" Type="Variable" Display="show" Required="false" Mask="true"/>
+  <Config Name="Proxy API Key" Target="PROXY_API_KEY" Default="" Mode="{3}" Description="API key for Open WebUI/PI (leave empty to disable)" Type="Variable" Display="show" Required="false" Mask="true"/>
+  <Config Name="Crawl4AI API Token" Target="CRAWL4AI_API_TOKEN" Default="" Mode="{3}" Description="Bearer token for Crawl4AI auth (leave empty if CRAWL4AI_API_TOKEN not set on Crawl4AI container)" Type="Variable" Display="show" Required="false" Mask="true"/>
 </Container>
